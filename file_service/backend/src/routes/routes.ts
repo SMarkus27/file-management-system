@@ -1,45 +1,44 @@
-import {UploadHandler} from "../uploadHandler";
-import {logger, pipelineAsync} from "../utils/log";
+import { UploadHandler } from "../uploadHandler";
+import { logger, pipelineAsync } from "../utils/log";
 
 const url = require("url");
 
-
 export class Routes {
-    #io
-    constructor(io) {
-        this.#io = io;
-    }
-    async options(request, response) {
-        response.writeHead(204, {
-            "Access-Control-Allow-Origin": "*",
-            "Access-Control-Allow-Method": "OPTIONS, POST",
+  #io;
+  constructor(io) {
+    this.#io = io;
+  }
+  async options(request, response) {
+    response.writeHead(204, {
+      "Access-Control-Allow-Origin": "*",
+      "Access-Control-Allow-Method": "OPTIONS, POST",
+    });
+    response.end();
+  }
 
-        });
-        response.end()
-    }
+  async post(request, response) {
+    const { headers } = request;
+    const {
+      query: { socketId },
+    } = url.parse(request.url, true);
+    const redirectTo = headers.origin;
 
-    async post(request, response) {
+    const uploadHandler = new UploadHandler(this.#io, socketId);
+    const onFinish = (request, redirectTo) => () => {
+      response.writeHead(303, {
+        Connection: "close",
+        Location: `${redirectTo}?msg=Files upload with success!`,
+      });
 
-        const {headers} = request;
-        const {query: {socketId}} = url.parse(request.url, true);
-        const redirectTo = headers.origin;
+      response.end();
+    };
+    const busboyInstance = uploadHandler.registerEvents(
+      headers,
+      onFinish(response, redirectTo),
+    );
 
-        const uploadHandler = new UploadHandler(this.#io, socketId);
-        const onFinish = (request, redirectTo) => () =>{
-            response.writeHead(303, {
-                Connection: "close",
-                Location: `${redirectTo}?msg=Files upload with success!`
-            })
+    await pipelineAsync(request, busboyInstance);
 
-            response.end()
-        }
-        const busboyInstance = uploadHandler.registerEvents(headers, onFinish(response, redirectTo))
-
-        await pipelineAsync(
-            request,
-            busboyInstance
-        )
-
-        logger.info("Request finished with success!!")
-    }
+    logger.info("Request finished with success!!");
+  }
 }
