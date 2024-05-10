@@ -16,12 +16,12 @@ jobs:
           node-version: "21"
           cache: "yarn"
 
-      - name: Install dependencies
-        run: cd file_service && yarn install
+      - name: Install dependencies and run Prettier
+        run: sh ci.sh
 
-      - name: Run Prettier
-        run: yarn prettier:format
-
+#      - name: Run Prettier
+#        run: cd file_service && yarn prettier:format
+#
       - name: Commit Changes
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
