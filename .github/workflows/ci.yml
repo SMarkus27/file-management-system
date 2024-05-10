@@ -17,7 +17,7 @@ jobs:
           cache: "yarn"
 
       - name: Install dependencies
-        run: yarn install
+        run: cd file_service && yarn install
 
       - name: Run Prettier
         run: yarn prettier:format
