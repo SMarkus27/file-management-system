@@ -1,5 +1,5 @@
 export interface IFilesRepository {
-    create(): Promise<any>
+    create(data): Promise<any>
     find(): Promise<any>
     findOne(): Promise<any>
     update(): Promise<any>

@@ -1,57 +1,53 @@
-import {FilesRepository} from "../../repositories/files/repository";
 import {Request, Response} from "express";
 import {IFilesService} from "../../domain/interfaces/services/interface";
+import {createWriteStream} from "fs";
+import {join} from "path";
 
 export class FilesService implements IFilesService{
-    private readonly filesRepository: FilesRepository
-    constructor() {
-        this.filesRepository = new FilesRepository()
-    }
 
     async create(request: Request, response: Response): Promise<Response> {
-        const result = await this.filesRepository.create()
+        const data = request.body.data;
+        const filename = request.body.fileName
+        const saveFileTo = join(__dirname, "../../repositories/files", filename);
+
+        createWriteStream(saveFileTo)
         return response.status(200).json({
             success: true,
-            data: result
+            data: data
         })
     }
 
     async getAll(request: Request, response: Response): Promise<Response>{
-        const result = await this.filesRepository.find()
-
         return response.status(200).json({
             success: true,
-            data: result
+            data: []
         })
 
     }
 
     async getOne(request: Request, response: Response): Promise<Response> {
-        const result = await this.filesRepository.findOne()
 
         return response.status(200).json({
             success: true,
-            data: result
+            data: []
         })
 
     }
 
     async update(request: Request, response: Response): Promise<Response> {
-        const result = await this.filesRepository.update()
 
         return response.status(200).json({
             success: true,
-            data: result
+            data: []
         })
 
     }
 
     async delete(request: Request, response: Response): Promise<Response> {
-        const result = await this.filesRepository.delete()
 
         return response.status(200).json({
             success: true,
-            data: result
+            data: []
         })
 
     }

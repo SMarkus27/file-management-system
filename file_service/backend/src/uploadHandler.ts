@@ -1,8 +1,12 @@
 import { join } from "path";
 import { logger, pipelineAsync } from "./utils/log";
 import { createWriteStream } from "fs";
-
+import axios from "axios";
+import {config} from "dotenv"
 const Busboy = require("busboy");
+let csvToJson = require('convert-csv-to-json');
+
+config()
 
 export class UploadHandler {
   #io;
@@ -30,7 +34,6 @@ export class UploadHandler {
   }
 
   async #onFile(fieldname, file, filename) {
-    console.log(filename.filename);
     const saveFileTo = join(__dirname, "../downloads", filename.filename);
 
     logger.info("Uploading " + saveFileTo);
@@ -40,6 +43,10 @@ export class UploadHandler {
       createWriteStream(saveFileTo),
     );
 
-    logger.info(`file [${filename}] finished`);
+    let json = csvToJson.fieldDelimiter(",").getJsonFromCsv(saveFileTo);
+
+    await axios.post(process.env.MOCK_URL, {data: json, fileName: filename.filename})
+    logger.info(`file ${filename.filename} finished`);
   }
 }
+
