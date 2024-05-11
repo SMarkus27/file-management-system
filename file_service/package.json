@@ -6,14 +6,22 @@
   "author": "SMarkus27 <pereira.markus.27@hotmail.com>",
   "license": "MIT",
   "scripts": {
-    "prettier:format": "prettier --write \"**/*.{ts,tsx,js,md,mdx,css,yaml}\"",
-    "prettier:check:ci": "prettier --check \"**/*.{ts,tsx,js,md,mdx,css,yaml}\"",
+    "start:frontend": "yarn http-server frontend/public",
+    "start:backend": "nodemon",
+    "prettier:format": "prettier --write \\\"**/*.{ts,tsx,js,md,mdx,css,yaml}\\\"",
+    "prettier:check:ci": "prettier --check \\\"**/*.{ts,tsx,js,md,mdx,css,yaml}\\\"",
     "test": "jest"
   },
   "dependencies": {
     "@types/node": "^20.12.11",
+    "busboy": "^1.6.0",
     "eslint": "^9.2.0",
+    "http-server": "^14.1.1",
+    "nodemon": "^3.1.0",
+    "pino": "^9.0.0",
+    "pino-pretty": "^11.0.0",
     "prettier": "^3.2.5",
+    "socket.io": "^4.7.5",
     "ts-node": "^10.9.2",
     "tsconfig-paths": "^4.2.0",
     "typescript": "^5.4.5"
