@@ -34,5 +34,4 @@ const startServer = () => {
   logger.info(`app running at http://${address}:${port}`);
 };
 
-
 server.listen(PORT, startServer);

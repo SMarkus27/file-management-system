@@ -23,7 +23,6 @@ const formatBytes = (bytes, decimals = 2) => {
   return bytesFormatted;
 };
 
-
 const updateStatus = (size) => {
   const message = `Pending Bytes to Upload <strong> ${formatBytes(size)}<strong/>`;
   document.getElementById("size").innerHTML = message;
@@ -41,7 +40,6 @@ const showFileSize = () => {
 
   bytesAmount = size;
   updateStatus(size);
-
 };
 const updateMessage = (message) => {
   const msg = document.getElementById("msg");
