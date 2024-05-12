@@ -8,7 +8,7 @@ export class FilesRepository {
     }
     async create(data) {
         const client = await this.mongoClient.getClient()
-        return await client.insertOne(data);
+        return await client.insertMany(data);
     }
     async getFiles() {
         const client = await this.mongoClient.getClient()

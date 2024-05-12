@@ -9,8 +9,7 @@ export class FilesService implements IFilesService {
   async create(request: Request, response: Response): Promise<Response> {
     const data = request.body.data;
     const fileRepository = new FilesRepository()
-    await fileRepository.create(data[0])
-
+    await fileRepository.create(data)
     return response.status(200).json({
       success: true,
       data: data,
