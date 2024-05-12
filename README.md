@@ -48,7 +48,10 @@ docker compose up -d
 ```
 http://127.0.0.1:8080/
 ```
+
 * You can upload any csv files
+
+![Screenshot from 2024-05-12 17-24-09](https://github.com/SMarkus27/file-management-system/assets/71283631/475a8af0-ae0a-456a-88f6-0e2c4e351604)
 
 
 ### For Get, Upload and Delete Data.
