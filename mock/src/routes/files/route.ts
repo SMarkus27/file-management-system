@@ -7,11 +7,11 @@ export const filesRouter = Router();
 
 filesRouter
   .route("/files")
-  .get(filesController.getOneFile)
+  .get(filesController.getFiles)
   .post(filesController.createFile);
 
 filesRouter
   .route("/files/:id")
-  .get(filesController.getFiles)
+  .get(filesController.getOneFile)
   .put(filesController.updateFile)
   .delete(filesController.deleteFile);
