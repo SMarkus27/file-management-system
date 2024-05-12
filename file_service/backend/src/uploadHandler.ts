@@ -6,7 +6,6 @@ import { config } from "dotenv";
 const Busboy = require("busboy");
 let csvToJson = require("convert-csv-to-json");
 
-
 config();
 
 export class UploadHandler {
@@ -47,11 +46,12 @@ export class UploadHandler {
     let jsonFile = csvToJson.fieldDelimiter(",").getJsonFromCsv(saveFileTo);
     const totalItems = jsonFile.length;
 
-    for (let i = 0; i <= totalItems; i+=100) {
-      await axios.post(process.env.MOCK_URL, {data: jsonFile.slice(i, i+100)})
+    for (let i = 0; i <= totalItems; i += 100) {
+      await axios.post(process.env.MOCK_URL, {
+        data: jsonFile.slice(i, i + 100),
+      });
     }
-    unlinkSync(saveFileTo)
+    unlinkSync(saveFileTo);
     logger.info(`file ${filename.filename} finished`);
-
   }
 }

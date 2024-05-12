@@ -2,14 +2,14 @@ import { Request, Response } from "express";
 import { IFilesService } from "../../domain/interfaces/services/interface";
 import { createWriteStream } from "fs";
 import { join } from "path";
-import {MongoDBInfrastructure} from "../../infrastructures/mongodb/infrastructure";
-import {FilesRepository} from "../../repositories/files/repository";
+import { MongoDBInfrastructure } from "../../infrastructures/mongodb/infrastructure";
+import { FilesRepository } from "../../repositories/files/repository";
 
 export class FilesService implements IFilesService {
   async create(request: Request, response: Response): Promise<Response> {
     const data = request.body.data;
-    const fileRepository = new FilesRepository()
-    await fileRepository.create(data)
+    const fileRepository = new FilesRepository();
+    await fileRepository.create(data);
     return response.status(200).json({
       success: true,
       data: data,
@@ -17,9 +17,9 @@ export class FilesService implements IFilesService {
   }
 
   async getAll(request: Request, response: Response): Promise<Response> {
-    const fileRepository = new FilesRepository()
+    const fileRepository = new FilesRepository();
     const result = await fileRepository.getFiles();
-    const loro = await result.toArray()
+    const loro = await result.toArray();
     return response.status(200).json({
       success: true,
       data: loro,
@@ -28,7 +28,7 @@ export class FilesService implements IFilesService {
 
   async getOne(request: Request, response: Response): Promise<Response> {
     const fileId = request.params.id;
-    const fileRepository = new FilesRepository()
+    const fileRepository = new FilesRepository();
     const result = await fileRepository.getFile(fileId);
     if (!result) {
       return response.status(404).json({
@@ -45,8 +45,8 @@ export class FilesService implements IFilesService {
 
   async update(request: Request, response: Response): Promise<Response> {
     const fileId = request.params.id;
-    const newData = request.body
-    const fileRepository = new FilesRepository()
+    const newData = request.body;
+    const fileRepository = new FilesRepository();
     const result = await fileRepository.getFile(fileId);
 
     if (!result) {
@@ -75,7 +75,7 @@ export class FilesService implements IFilesService {
 
   async delete(request: Request, response: Response): Promise<Response> {
     const fileId = request.params.id;
-    const fileRepository = new FilesRepository()
+    const fileRepository = new FilesRepository();
     await fileRepository.delete(fileId);
 
     const result = await fileRepository.getFile(fileId);
