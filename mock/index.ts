@@ -4,9 +4,11 @@ import { filesRouter } from "./src/routes/files/route";
 
 const app = express();
 
-app.use(cors({
-  origin: "*"
-}));
+app.use(
+  cors({
+    origin: "*",
+  }),
+);
 
 app.use(express.json());
 

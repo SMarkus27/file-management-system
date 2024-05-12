@@ -51,9 +51,8 @@ export class UploadHandler {
           data: jsonFile.slice(i, i + 100),
         });
       }
-    }
-    catch (err) {
-      console.log(err)
+    } catch (err) {
+      console.log(err);
     }
     unlinkSync(saveFileTo);
     logger.info(`file ${filename.filename} finished`);
