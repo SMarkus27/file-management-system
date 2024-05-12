@@ -45,11 +45,14 @@ export class UploadHandler {
 
     let jsonFile = csvToJson.fieldDelimiter(",").getJsonFromCsv(saveFileTo);
     const totalItems = jsonFile.length;
-
-    for (let i = 0; i <= totalItems; i += 100) {
-      await axios.post(process.env.MOCK_URL, {
-        data: jsonFile.slice(i, i + 100),
-      });
+    try {
+      for (let i = 0; i <= totalItems; i += 100) {
+        await axios.post(process.env.MOCK_URL, {
+          data: jsonFile.slice(i, i + 100),
+        });
+      }
+    } catch (err) {
+      console.log(err);
     }
     unlinkSync(saveFileTo);
     logger.info(`file ${filename.filename} finished`);
