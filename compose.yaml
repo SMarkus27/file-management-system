@@ -1,0 +1,32 @@
+services:
+
+  file_service_backend:
+    container_name: file_service_backend
+    build:
+      context: file_service/backend
+      dockerfile: Dockerfile
+    ports:
+      - 3000:3000
+    expose:
+      - 3000
+
+  file_service_frontend:
+    container_name: file_service_frontend
+    build:
+      context: file_service
+      dockerfile: Dockerfile
+    ports:
+      - 8080:8080
+    expose:
+      - 8080
+
+  mock:
+    container_name: mock_service
+    build:
+      context: mock
+      dockerfile: Dockerfile
+
+    ports:
+      - 3001:3001
+    expose:
+      - 3001
