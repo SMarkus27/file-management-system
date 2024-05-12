@@ -1,0 +1,12 @@
+{
+  "compilerOptions": {
+    "baseUrl": "..",
+    "target": "ES2016",
+    "module": "CommonJS",
+    "esModuleInterop": true,
+    "allowJs": true,
+    "forceConsistentCasingInFileNames": true,
+    "skipLibCheck": true,
+    "resolveJsonModule": true
+  }
+}
