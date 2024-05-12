@@ -1,0 +1,48 @@
+name: CI
+
+on: [push]
+
+jobs:
+  prettier:
+    name: Prettier Styles
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out git repository
+        uses: actions/checkout@v4
+
+      - name: Set up Nodejs
+        uses: actions/setup-node@v4
+        with:
+          node-version: "21"
+          cache: "yarn"
+
+      - name: Install dependencies and run Prettier on File Service
+        run: sh ci_file_service.sh
+
+      - name: Install dependencies and run Prettier on Mock Service
+        run: sh ci_mock.sh
+
+      - name: Commit Changes
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: Apply Prettier
+          branch: ${{ github.head_ref }}
+
+#  tests:
+#    name: Unit Test
+#    runs-on: ubuntu-latest
+#    steps:
+#      - name: Check out git repository
+#        uses: actions/checkout@v4
+#
+#      - name: Set up Nodejs
+#        uses: actions/setup-node@v4
+#        with:
+#          node-version: "21"
+#          cache: "yarn"
+#
+#      - name: Install dependencies
+#        run: yarn install
+#
+#      - name: Unit test
+#        run: yarn test

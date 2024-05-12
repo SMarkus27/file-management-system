@@ -24,7 +24,7 @@ const formatBytes = (bytes, decimals = 2) => {
 };
 
 const updateStatus = (size) => {
-  const message = `Pending Bytes to Upload <strong> ${size}<strong/>`;
+  const message = `Pending Bytes to Upload <strong> ${formatBytes(size)}<strong/>`;
   document.getElementById("size").innerHTML = message;
 };
 
@@ -40,16 +40,6 @@ const showFileSize = () => {
 
   bytesAmount = size;
   updateStatus(size);
-
-  // const interval = setInterval(() => {
-  //     console.count();
-  //     const result = bytesAmount - 5e6
-  //     bytesAmount = result < 0? 0 : result;
-  //
-  //     updateStatus(bytesAmount)
-  //     if (bytesAmount === 0) clearInterval(interval)
-  //
-  // }, 50)
 };
 const updateMessage = (message) => {
   const msg = document.getElementById("msg");
